@@ -15,13 +15,11 @@ function HomePage() {
    const getUserProfileandRepos = useCallback( async (username="Shravyasri1703") =>{
 	 setLoading(true)
         try{
-			const userRes = await fetch(`https://api.github.com/users/${username}`)
-		     const userProfile = await userRes.json()
-			 setuserProf(userProfile)
-
-			 const repoRes = await fetch(userProfile.repos_url)
-			 const repos = await repoRes.json()
-			 setRepos(repos)
+			const res = await fetch(`http://localhost:5000/api/users/profile/${username}`)
+			const { repos, userProfile} = await res.json()
+			
+			setRepos(repos)
+			setuserProf(userProfile)
 			 console.log(userProfile)
 			 console.log(repos)
 			 return {userProfile, repos}
